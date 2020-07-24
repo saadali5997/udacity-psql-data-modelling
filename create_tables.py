@@ -4,10 +4,12 @@ from sql_queries import create_table_queries, drop_table_queries
 
 def create_database():
     """
-    - Creates and connects to the sparkifydb
-    - Returns the connection and cursor to sparkifydb
-    """
+    This function drops the exiting sparkifydb and creates a fresh one. It also initializes a connection with the database.
     
+    Returns:
+    cur: Database cursor.
+    conn: Databse connection.
+    """
     # connect to default database
     conn = psycopg2.connect("host=127.0.0.1 dbname=studentdb user=student password=student")
     conn.set_session(autocommit=True)
@@ -29,7 +31,7 @@ def create_database():
 
 def drop_tables(cur, conn):
     """
-    Drops each table using the queries in `drop_table_queries` list.
+    This function drops all the tables using drop_table_queries defined in `sql_quries.py`.
     """
     for query in drop_table_queries:
         cur.execute(query)
@@ -38,7 +40,7 @@ def drop_tables(cur, conn):
 
 def create_tables(cur, conn):
     """
-    Creates each table using the queries in `create_table_queries` list. 
+    This function creates all the tables using create_table_quries defined in `sql_quries.py`.
     """
     for query in create_table_queries:
         cur.execute(query)
@@ -47,16 +49,7 @@ def create_tables(cur, conn):
 
 def main():
     """
-    - Drops (if exists) and Creates the sparkify database. 
-    
-    - Establishes connection with the sparkify database and gets
-    cursor to it.  
-    
-    - Drops all the tables.  
-    
-    - Creates all tables needed. 
-    
-    - Finally, closes the connection. 
+    This is the main driver function of this script.
     """
     cur, conn = create_database()
     
